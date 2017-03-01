@@ -4,17 +4,21 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core
+greaterThan(QT_MAJOR_VERSION, 4) QT += widgets
+QT -= gui
+QT += network
+CONFIG += c++11
 
 TARGET = Game_Server
+CONFIG -= app_bundle
+
 TEMPLATE = app
-
-
 SOURCES += main.cpp\
-        servermainwindow.cpp
+        servermainwindow.cpp \
+    tcpserver.cpp
 
-HEADERS  += servermainwindow.h
+HEADERS  += servermainwindow.h \
+    tcpserver.h
 
 FORMS    += servermainwindow.ui
