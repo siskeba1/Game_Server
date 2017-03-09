@@ -1,7 +1,10 @@
 #include "tcpserver.h"
 
-//#include <QDebug>
-//#include <QString>
+#include <QDebug>
+#include <QString>
+#include <QDateTime>
+#include <stringconstant.h>
+#include <QDataStream>
 
 TcpServer::TcpServer(QObject *parent) : QTcpServer(parent)
 {
@@ -54,17 +57,35 @@ void TcpServer::incomingConnection(qintptr socketDescriptor)
 
     connection = new QTcpSocket(this);
     connection->setSocketDescriptor(socketDescriptor);
-//    if (connection)
-//    {
-//        QString signalMessage = "ip:" + connection->peerAddress().toString() + " port:" + QString::number(connection->peerPort()) + " client connected. [" + QDateTime::currentDateTime().date().toString(Strings::DATE_FORMAT) + " " + QDateTime::currentDateTime().time().toString(Strings::TIME_FORMAT) +"]";
-//        emit signalClientsChanged(signalMessage);
+    if (connection)
+    {
+        QString signalMessage = "ip:" + connection->peerAddress().toString() + " port:" + QString::number(connection->peerPort()) + " client connected. [" + QDateTime::currentDateTime().date().toString(StringConstant::DATE_FORMAT) + " " + QDateTime::currentDateTime().time().toString(StringConstant::TIME_FORMAT) +"]";
+        //emit signalClientsChanged(signalMessage);
 
-//        connection->startWarningTimer();
-//        clientConnections.append(connection);
+        //connection->startWarningTimer();
+        //clientConnections.append(connection);
 
-//        connect(connection, &QIODevice::readyRead, this, &Server::slotReadReady);
-//        connect(connection, SIGNAL(disconnected()), this, SLOT(slotDisconnected()));
-//    }
+        connect(connection, &QIODevice::readyRead, this, &TcpServer::slotMessageRead);
+        //connect(connection, SIGNAL(disconnected()), this, SLOT(slotDisconnected()));
+    }
+}
+
+void TcpServer::slotMessageRead()
+{
+    connection = qobject_cast<QTcpSocket*>(sender());
+    connection->waitForReadyRead(10);
+    do
+    {
+      QDataStream in;
+      in.setDevice(connection);
+      in.setVersion(QDataStream::Qt_5_7);
+      in.startTransaction();
+      in >> msg;
+      in.commitTransaction();
+      //Decryption.
+      qDebug() << "Üzenet: " << msg;
+    }
+    while (connection->bytesAvailable() > 0);
 }
 
 void TcpServer::printServerInfo()

@@ -16,7 +16,9 @@ protected:
     void incomingConnection(qintptr socketDescriptor) Q_DECL_OVERRIDE;
 private:
     QTcpSocket *connection;
-
+    QString msg;
+private slots:
+    void slotMessageRead();
 };
 
 #endif // TCPSERVER_H

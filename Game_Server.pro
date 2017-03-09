@@ -16,9 +16,11 @@ CONFIG -= app_bundle
 TEMPLATE = app
 SOURCES += main.cpp\
         servermainwindow.cpp \
-    tcpserver.cpp
+    tcpserver.cpp \
+    stringconstant.cpp
 
 HEADERS  += servermainwindow.h \
-    tcpserver.h
+    tcpserver.h \
+    stringconstant.h
 
 FORMS    += servermainwindow.ui
