@@ -10,8 +10,7 @@ class TcpServer : public QTcpServer
     Q_OBJECT
     void printServerInfo();
 public:
-    TcpServer(QObject *parent = NULL);
-    bool startServer(QString ipAddress, int port);
+    TcpServer(QObject *parent = NULL);    
 protected:
     void incomingConnection(qintptr socketDescriptor) Q_DECL_OVERRIDE;
 private:
@@ -19,6 +18,9 @@ private:
     QString msg;
 private slots:
     void slotMessageRead();
+public slots:
+    bool startServer(QString ipAddress, int port);
+    void shutDownServer();
 };
 
 #endif // TCPSERVER_H

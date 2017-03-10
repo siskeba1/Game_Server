@@ -1,15 +1,20 @@
 #include "servermainwindow.h"
-#include <QApplication>
+#include "Connector/serverconnector.h"
 #include <tcpserver.h>
+#include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    //Model
     TcpServer *tcpServer = new TcpServer(new QObject);
 
-    ServerMainWindow w;
-    w.show();
+    //View
+    ServerMainWindow* serverMainWindow = new ServerMainWindow();
+
+    //Connecctor
+    ServerConnector* serverConnector = new ServerConnector(tcpServer, serverMainWindow);
 
     return a.exec();
 }

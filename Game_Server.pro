@@ -17,10 +17,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         servermainwindow.cpp \
     tcpserver.cpp \
-    stringconstant.cpp
+    stringconstant.cpp \
+    Connector/serverconnector.cpp
 
 HEADERS  += servermainwindow.h \
     tcpserver.h \
-    stringconstant.h
+    stringconstant.h \
+    Connector/serverconnector.h
 
 FORMS    += servermainwindow.ui

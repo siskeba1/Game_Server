@@ -6,34 +6,35 @@
 #include <stringconstant.h>
 #include <QDataStream>
 
+#define PORT_RANGE 65535
+
 TcpServer::TcpServer(QObject *parent) : QTcpServer(parent)
 {
-    startServer(QString("192.168.153.1"), 6000);
-    qDebug() << "Hello";
+    qDebug() << "Tcp server constructor.";
 }
 
 bool TcpServer::startServer(QString ipAddress, int port)
 {
     ///Parameter checking
     //Ipv4 format checking
-//    if(!ipAddress.contains(QRegExp(Strings::REGEX_IPV4)))
-//    {
-//       qDebug () << Strings::ERROR_INVALID_INPUT_IP_ADDRESS;
-//       return false;
-//    }
-//    //Port range checking.
-//    if (port > PORT_RANGE)
-//    {
-//        qDebug() << Strings::ERROR_OUT_OF_RANGE_PORT;
-//        return false;
-//    }
+    if(!ipAddress.contains(QRegExp(StringConstant::REGEX_IPV4)))
+    {
+       qDebug () << StringConstant::ERROR_FORMAT_NOT_IPV4;
+       return false;
+    }
+    //Port range checking.
+    if (port > PORT_RANGE)
+    {
+        qDebug() << StringConstant::ERROR_OUT_OF_RANGE_PORT;
+        return false;
+    }
     //Converting QString to QHostAddress.
     QHostAddress ip = QHostAddress(ipAddress);
 
     //Try to start the server using the given ip and port.
     if (!(this->listen(ip, port)))
     {
-//        qDebug() << Strings::ERROR_UNABLE_TO_START_SERVER << ipAddress;
+        qDebug() << StringConstant::ERROR_SERVER_UNABLE_TO_START << " Ip: " << ipAddress;
         qDebug() << this->errorString();
         this->close();
         return false;
@@ -44,6 +45,11 @@ bool TcpServer::startServer(QString ipAddress, int port)
         printServerInfo();
         return true;
     }
+}
+
+void TcpServer::shutDownServer()
+{
+    this->close();
 }
 
 void TcpServer::incomingConnection(qintptr socketDescriptor)
