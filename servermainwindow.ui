@@ -292,10 +292,29 @@
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_10">
                <item>
+                <widget class="QLabel" name="serverStatusSign">
+                 <property name="minimumSize">
+                  <size>
+                   <width>20</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>20</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
                 <widget class="QLabel" name="serverStatusLabel">
                  <property name="minimumSize">
                   <size>
-                   <width>120</width>
+                   <width>100</width>
                    <height>30</height>
                   </size>
                  </property>
@@ -303,6 +322,19 @@
                   <string>Server status</string>
                  </property>
                 </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_8">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
                <item>
                 <widget class="QLabel" name="serverStatusValue">

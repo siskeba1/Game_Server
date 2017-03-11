@@ -30,6 +30,8 @@ private:
 signals:
     void signalStartButton(QString ip, int port);
     void signalShutDownButton();
+protected:
+    void keyPressEvent(QKeyEvent *event);
 };
 
 #endif // SERVERMAINWINDOW_H

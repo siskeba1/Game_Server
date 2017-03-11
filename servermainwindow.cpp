@@ -1,6 +1,7 @@
 #include "servermainwindow.h"
 #include "ui_servermainwindow.h"
 #include "stringconstant.h"
+#include "QKeyEvent"
 
 ServerMainWindow::ServerMainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -60,6 +61,20 @@ void ServerMainWindow::slotServerAlreadyRunning(QString ipAddress, int port)
 void ServerMainWindow::slotServerNotEvenStarted(QString ipAddress, int port)
 {
     ui->statusBar->showMessage(StringConstant::ERROR_SERVER_NOT_EVEN_STARTED + " " + ipAddress + ":" + QString::number(port));
+}
+
+void ServerMainWindow::keyPressEvent(QKeyEvent *event)
+{
+
+    switch(event->key())
+    {
+    //When ENTER key is pressed behaves like start button was pressed.
+    case Qt::Key_Return:
+    {
+        on_startButton_clicked();
+    }
+        break;
+    }
 }
 
 //bool ServerMainWindow::checkIpFormat()
