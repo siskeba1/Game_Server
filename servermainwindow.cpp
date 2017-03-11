@@ -9,26 +9,23 @@ ServerMainWindow::ServerMainWindow(QWidget *parent) :
     ui(new Ui::ServerMainWindow)
 {
     ui->setupUi(this);
-
-    //Set all splitter element to non-collapsible.
-    QList<QWidget *> widgets = ui->splitter->findChildren<QWidget *>();
-    //FIXME: find out how to find olny direct children. now finds all of the children.
-
-    int i = 0;
-//    qDebug() << ui->splitter->objectName();
-//    foreach (QWidget* a, childrenofSplitter)
-//    {
-//        ui->splitter->setCollapsible(i, false);
-//     qDebug() << "asd" << i << ui->splitter->objectName();
-//        i++;
-//    }
-
-
+    setupSplitterCollapsibility(ui->splitter, false);
+    setupSplitterCollapsibility(ui->splitter_2, false);
 }
 
 ServerMainWindow::~ServerMainWindow()
 {
     delete ui;
+}
+
+void ServerMainWindow::setupSplitterCollapsibility(QSplitter *splitter, bool collapseFlag)
+{
+    //Set all splitter element to non-collapsible.
+    QList<QFrame *> childrenOfSplitter = splitter->findChildren<QFrame *>(QRegExp(".*"), Qt::FindDirectChildrenOnly);
+    for(int i = 0; i < childrenOfSplitter.size(); i++)
+    {
+        splitter->setCollapsible(i, collapseFlag);
+    }
 }
 
 /**

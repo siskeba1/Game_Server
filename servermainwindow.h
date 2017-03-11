@@ -2,6 +2,7 @@
 #define SERVERMAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSplitter>
 
 namespace Ui {
 class ServerMainWindow;
@@ -27,6 +28,7 @@ private slots:
 private:
     Ui::ServerMainWindow *ui;
     bool checkIpFormat();
+    void setupSplitterCollapsibility(QSplitter *splitter, bool collapseFlag);
 signals:
     void signalStartButton(QString ip, int port);
     void signalShutDownButton();
