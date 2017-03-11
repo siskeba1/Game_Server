@@ -259,7 +259,6 @@
             </layout>
            </item>
           </layout>
-          <zorder>ipLineEdit</zorder>
           <zorder></zorder>
          </widget>
         </item>
@@ -293,7 +292,7 @@
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_10">
                <item>
-                <widget class="QLabel" name="label_15">
+                <widget class="QLabel" name="serverStatusLabel">
                  <property name="minimumSize">
                   <size>
                    <width>120</width>
@@ -301,12 +300,12 @@
                   </size>
                  </property>
                  <property name="text">
-                  <string>Data1</string>
+                  <string>Server status</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="label_16">
+                <widget class="QLabel" name="serverStatusValue">
                  <property name="minimumSize">
                   <size>
                    <width>50</width>
@@ -314,7 +313,7 @@
                   </size>
                  </property>
                  <property name="text">
-                  <string>Value1</string>
+                  <string/>
                  </property>
                 </widget>
                </item>
@@ -560,7 +559,7 @@
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>true</bool>
+    <bool>false</bool>
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>

@@ -18,8 +18,13 @@ public:
     //ERROR MESSAGES
     static const QString ERROR_FORMAT_NOT_IPV4;
     static const QString ERROR_SERVER_UNABLE_TO_START;
+    static const QString ERROR_SERVER_IS_ALREADY_RUNNING;
+    static const QString ERROR_SERVER_NOT_EVEN_STARTED;
     static const QString ERROR_OUT_OF_RANGE_PORT;
 
+    //SERVER MESSAGES
+     static const QString SERVER_RUNNING;
+     static const QString SERVER_NOT_RUNNING;
 };
 
 #endif // STRINGCONSTANT_H

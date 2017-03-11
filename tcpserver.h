@@ -16,6 +16,13 @@ protected:
 private:
     QTcpSocket *connection;
     QString msg;
+signals:
+    signalServerStarted();
+    signalServerStopped();
+
+    signalServerAlreadyRunning();
+    signalServerNotEvenStarted();
+
 private slots:
     void slotMessageRead();
 public slots:

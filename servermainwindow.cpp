@@ -32,6 +32,28 @@ void ServerMainWindow::on_shutDownButton_clicked()
     emit signalShutDownButton();
 }
 
+void ServerMainWindow::slotServerStarted()
+{
+    ui->serverStatusValue->setText(StringConstant::SERVER_RUNNING);
+    ui->statusBar->showMessage(StringConstant::SERVER_RUNNING);
+}
+
+void ServerMainWindow::slotServerStopped()
+{
+    ui->serverStatusValue->setText(StringConstant::SERVER_NOT_RUNNING);
+    ui->statusBar->showMessage(StringConstant::SERVER_NOT_RUNNING);
+}
+
+void ServerMainWindow::slotServerAlreadyRunning()
+{
+    ui->statusBar->showMessage(StringConstant::ERROR_SERVER_IS_ALREADY_RUNNING);
+}
+
+void ServerMainWindow::slotServerNotEvenStarted()
+{
+    ui->statusBar->showMessage(StringConstant::ERROR_SERVER_NOT_EVEN_STARTED);
+}
+
 //bool ServerMainWindow::checkIpFormat()
 //{
 //    //Checks Ipv4 format match.

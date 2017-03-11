@@ -15,6 +15,12 @@ public:
     explicit ServerMainWindow(QWidget *parent = 0);
     ~ServerMainWindow();
 
+public slots:
+    void slotServerStarted();
+    void slotServerStopped();
+
+    void slotServerAlreadyRunning();
+    void slotServerNotEvenStarted();
 private slots:
     void on_startButton_clicked();
     void on_shutDownButton_clicked();

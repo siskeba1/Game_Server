@@ -15,6 +15,13 @@ TcpServer::TcpServer(QObject *parent) : QTcpServer(parent)
 
 bool TcpServer::startServer(QString ipAddress, int port)
 {
+    //If the server is already running and listening on ip/port.
+    if (isListening())
+    {
+        qDebug() << StringConstant::ERROR_SERVER_IS_ALREADY_RUNNING;
+        emit signalServerAlreadyRunning();
+        return false;
+    }
     ///Parameter checking
     //Ipv4 format checking
     if(!ipAddress.contains(QRegExp(StringConstant::REGEX_IPV4)))
@@ -42,6 +49,7 @@ bool TcpServer::startServer(QString ipAddress, int port)
     else
     {
         //The server is running.
+        emit signalServerStarted();
         printServerInfo();
         return true;
     }
@@ -49,7 +57,15 @@ bool TcpServer::startServer(QString ipAddress, int port)
 
 void TcpServer::shutDownServer()
 {
-    this->close();
+    if(isListening())
+    {
+        emit signalServerStopped();
+        this->close();
+    }
+    else
+    {
+        emit signalServerNotEvenStarted();
+    }
 }
 
 void TcpServer::incomingConnection(qintptr socketDescriptor)
