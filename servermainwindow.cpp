@@ -2,12 +2,28 @@
 #include "ui_servermainwindow.h"
 #include "stringconstant.h"
 #include "QKeyEvent"
+#include <QDebug>
 
 ServerMainWindow::ServerMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ServerMainWindow)
 {
     ui->setupUi(this);
+
+    //Set all splitter element to non-collapsible.
+    QList<QWidget *> widgets = ui->splitter->findChildren<QWidget *>();
+    //FIXME: find out how to find olny direct children. now finds all of the children.
+
+    int i = 0;
+//    qDebug() << ui->splitter->objectName();
+//    foreach (QWidget* a, childrenofSplitter)
+//    {
+//        ui->splitter->setCollapsible(i, false);
+//     qDebug() << "asd" << i << ui->splitter->objectName();
+//        i++;
+//    }
+
+
 }
 
 ServerMainWindow::~ServerMainWindow()
@@ -36,6 +52,7 @@ void ServerMainWindow::on_shutDownButton_clicked()
 void ServerMainWindow::slotServerStarted(QString ipAddress, int port)
 {
     ui->serverStatusValue->setText(StringConstant::SERVER_RUNNING);
+    ui->serverStatusSign->setStyleSheet("QLabel { background-color : green; }");
     ui->statusBar->showMessage(StringConstant::SERVER_RUNNING + " " + ipAddress + ":" + QString::number(port));
 
     //Disable line edits
@@ -46,6 +63,7 @@ void ServerMainWindow::slotServerStarted(QString ipAddress, int port)
 void ServerMainWindow::slotServerStopped(QString ipAddress, int port)
 {
     ui->serverStatusValue->setText(StringConstant::SERVER_NOT_RUNNING);
+    ui->serverStatusSign->setStyleSheet("QLabel { background-color : red; }");
     ui->statusBar->showMessage(StringConstant::SERVER_NOT_RUNNING + " " + ipAddress + ":" + QString::number(port));
 
     //Enable line edits
