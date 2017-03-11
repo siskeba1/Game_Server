@@ -19,7 +19,7 @@ bool TcpServer::startServer(QString ipAddress, int port)
     if (isListening())
     {
         qDebug() << StringConstant::ERROR_SERVER_IS_ALREADY_RUNNING;
-        emit signalServerAlreadyRunning();
+        emit signalServerAlreadyRunning(ipAddress, port);
         return false;
     }
     ///Parameter checking
@@ -49,7 +49,7 @@ bool TcpServer::startServer(QString ipAddress, int port)
     else
     {
         //The server is running.
-        emit signalServerStarted();
+        emit signalServerStarted(ipAddress, port);
         printServerInfo();
         return true;
     }
@@ -59,12 +59,12 @@ void TcpServer::shutDownServer()
 {
     if(isListening())
     {
-        emit signalServerStopped();
+        emit signalServerStopped(this->serverAddress().toString(), this->serverPort());
         this->close();
     }
     else
     {
-        emit signalServerNotEvenStarted();
+        emit signalServerNotEvenStarted(this->serverAddress().toString(), this->serverPort());
     }
 }
 

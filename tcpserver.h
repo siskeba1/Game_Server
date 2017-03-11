@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include <QString>
 
 class TcpServer : public QTcpServer
 {
@@ -17,11 +18,11 @@ private:
     QTcpSocket *connection;
     QString msg;
 signals:
-    signalServerStarted();
-    signalServerStopped();
+    signalServerStarted(QString ip, int port);
+    signalServerStopped(QString ip, int port);
 
-    signalServerAlreadyRunning();
-    signalServerNotEvenStarted();
+    signalServerAlreadyRunning(QString ip, int port);
+    signalServerNotEvenStarted(QString ip, int port);
 
 private slots:
     void slotMessageRead();

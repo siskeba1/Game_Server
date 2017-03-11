@@ -32,26 +32,34 @@ void ServerMainWindow::on_shutDownButton_clicked()
     emit signalShutDownButton();
 }
 
-void ServerMainWindow::slotServerStarted()
+void ServerMainWindow::slotServerStarted(QString ipAddress, int port)
 {
     ui->serverStatusValue->setText(StringConstant::SERVER_RUNNING);
-    ui->statusBar->showMessage(StringConstant::SERVER_RUNNING);
+    ui->statusBar->showMessage(StringConstant::SERVER_RUNNING + " " + ipAddress + ":" + QString::number(port));
+
+    //Disable line edits
+    ui->ipLineEdit->setEnabled(false);
+    ui->portLineEdit->setEnabled(false);
 }
 
-void ServerMainWindow::slotServerStopped()
+void ServerMainWindow::slotServerStopped(QString ipAddress, int port)
 {
     ui->serverStatusValue->setText(StringConstant::SERVER_NOT_RUNNING);
-    ui->statusBar->showMessage(StringConstant::SERVER_NOT_RUNNING);
+    ui->statusBar->showMessage(StringConstant::SERVER_NOT_RUNNING + " " + ipAddress + ":" + QString::number(port));
+
+    //Enable line edits
+    ui->ipLineEdit->setEnabled(true);
+    ui->portLineEdit->setEnabled(true);
 }
 
-void ServerMainWindow::slotServerAlreadyRunning()
+void ServerMainWindow::slotServerAlreadyRunning(QString ipAddress, int port)
 {
-    ui->statusBar->showMessage(StringConstant::ERROR_SERVER_IS_ALREADY_RUNNING);
+    ui->statusBar->showMessage(StringConstant::ERROR_SERVER_IS_ALREADY_RUNNING + " " + ipAddress + ":" + QString::number(port));
 }
 
-void ServerMainWindow::slotServerNotEvenStarted()
+void ServerMainWindow::slotServerNotEvenStarted(QString ipAddress, int port)
 {
-    ui->statusBar->showMessage(StringConstant::ERROR_SERVER_NOT_EVEN_STARTED);
+    ui->statusBar->showMessage(StringConstant::ERROR_SERVER_NOT_EVEN_STARTED + " " + ipAddress + ":" + QString::number(port));
 }
 
 //bool ServerMainWindow::checkIpFormat()

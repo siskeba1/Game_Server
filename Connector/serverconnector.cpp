@@ -11,19 +11,17 @@ ServerConnector::ServerConnector(TcpServer *tcpServer, ServerMainWindow *serverM
     this->serverMainWindow = serverMainWindow;
 
     //Start listening at GUI button signal.
-    connect(this->serverMainWindow, SIGNAL(signalStartButton(QString,int)), this->tcpServer, SLOT(startServer(QString,int)));
+    connect(this->serverMainWindow, SIGNAL(signalStartButton(QString, int)), this->tcpServer, SLOT(startServer(QString, int)));
 
     //Stop listening at GUI button signal.
     connect(this->serverMainWindow, SIGNAL(signalShutDownButton()), this->tcpServer, SLOT(shutDownServer()));
 
-    //GUI slot called at server start signal.
-    connect(this->tcpServer, SIGNAL(signalServerStarted()), this->serverMainWindow, SLOT(slotServerStarted()));
+    //GUI slot called at server start/stop signal.
+    connect(this->tcpServer, SIGNAL(signalServerStarted(QString, int)), this->serverMainWindow, SLOT(slotServerStarted(QString, int)));
+    connect(this->tcpServer, SIGNAL(signalServerStopped(QString, int)), this->serverMainWindow, SLOT(slotServerStopped(QString, int)));
 
-    //GUI slot called at server stop signal.
-    connect(this->tcpServer, SIGNAL(signalServerStopped()), this->serverMainWindow, SLOT(slotServerStopped()));
-
-    connect(this->tcpServer, SIGNAL(signalServerAlreadyRunning()), this->serverMainWindow, SLOT(slotServerAlreadyRunning()));
-    connect(this->tcpServer, SIGNAL(signalServerNotEvenStarted()), this->serverMainWindow, SLOT(slotServerNotEvenStarted()));
+    connect(this->tcpServer, SIGNAL(signalServerAlreadyRunning(QString, int)), this->serverMainWindow, SLOT(slotServerAlreadyRunning(QString, int)));
+    connect(this->tcpServer, SIGNAL(signalServerNotEvenStarted(QString, int)), this->serverMainWindow, SLOT(slotServerNotEvenStarted(QString, int)));
 
     //Show GUI - mainWindow
     this->serverMainWindow->show();

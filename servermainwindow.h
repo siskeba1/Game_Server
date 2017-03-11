@@ -16,11 +16,11 @@ public:
     ~ServerMainWindow();
 
 public slots:
-    void slotServerStarted();
-    void slotServerStopped();
+    void slotServerStarted(QString ipAddress, int port);
+    void slotServerStopped(QString ipAddress, int port);
 
-    void slotServerAlreadyRunning();
-    void slotServerNotEvenStarted();
+    void slotServerAlreadyRunning(QString ipAddress, int port);
+    void slotServerNotEvenStarted(QString ipAddress, int port);
 private slots:
     void on_startButton_clicked();
     void on_shutDownButton_clicked();
