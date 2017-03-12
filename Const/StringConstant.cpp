@@ -1,4 +1,4 @@
-#include "stringconstant.h"
+#include "StringConstant.h"
 
 //Date format
 const QString StringConstant::DATE_FORMAT = "yyyy-MM-dd";

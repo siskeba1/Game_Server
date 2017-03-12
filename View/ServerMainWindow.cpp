@@ -1,6 +1,6 @@
-#include "servermainwindow.h"
+#include "ServerMainWindow.h"
 #include "ui_servermainwindow.h"
-#include "stringconstant.h"
+#include "StringConstant.h"
 #include "QKeyEvent"
 #include <QDebug>
 

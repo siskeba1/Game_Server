@@ -14,15 +14,17 @@ TARGET = Game_Server
 CONFIG -= app_bundle
 
 TEMPLATE = app
-SOURCES += main.cpp\
-        servermainwindow.cpp \
-    tcpserver.cpp \
-    stringconstant.cpp \
-    Connector/serverconnector.cpp
+SOURCES += Main/main.cpp\
+    Controller/ServerController.cpp \
+    View/ServerMainWindow.cpp \
+    Const/StringConstant.cpp \
+    Model/TcpServer.cpp
 
-HEADERS  += servermainwindow.h \
-    tcpserver.h \
-    stringconstant.h \
-    Connector/serverconnector.h
+HEADERS  += \
+    Model/TcpServer.h \
+    Const/StringConstant.h \
+    View/ServerMainWindow.h \
+    Controller/ServerController.h
 
-FORMS    += servermainwindow.ui
+FORMS    += \
+    GUI/ServerMainWindow.ui

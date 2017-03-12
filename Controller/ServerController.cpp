@@ -1,4 +1,4 @@
-#include "Connector/serverconnector.h"
+#include "Connector/ServerController.h"
 
 ServerConnector::ServerConnector(QObject *parent) : QObject(parent)
 {

@@ -1,9 +1,9 @@
-#include "tcpserver.h"
+#include "TcpServer.h"
 
 #include <QDebug>
 #include <QString>
 #include <QDateTime>
-#include <stringconstant.h>
+#include <StringConstant.h>
 #include <QDataStream>
 
 #define PORT_RANGE 65535
