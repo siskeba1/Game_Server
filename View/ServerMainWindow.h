@@ -22,6 +22,9 @@ public slots:
 
     void slotServerAlreadyRunning(QString ipAddress, int port);
     void slotServerNotEvenStarted(QString ipAddress, int port);
+
+    void slotUpdateStatusBar(QString message);
+
 private slots:
     void on_startButton_clicked();
     void on_shutDownButton_clicked();
@@ -29,6 +32,7 @@ private:
     Ui::ServerMainWindow *ui;
     bool checkIpFormat();
     void setupSplitterCollapsibility(QSplitter *splitter, bool collapseFlag);
+    QString ServerAddress(QString ipAddress, int port);
 signals:
     void signalStartButton(QString ip, int port);
     void signalShutDownButton();

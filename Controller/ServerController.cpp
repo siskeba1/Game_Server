@@ -1,4 +1,4 @@
-#include "Connector/ServerController.h"
+#include "Controller/ServerController.h"
 
 ServerConnector::ServerConnector(QObject *parent) : QObject(parent)
 {
@@ -22,7 +22,7 @@ ServerConnector::ServerConnector(TcpServer *tcpServer, ServerMainWindow *serverM
 
     connect(this->tcpServer, SIGNAL(signalServerAlreadyRunning(QString, int)), this->serverMainWindow, SLOT(slotServerAlreadyRunning(QString, int)));
     connect(this->tcpServer, SIGNAL(signalServerNotEvenStarted(QString, int)), this->serverMainWindow, SLOT(slotServerNotEvenStarted(QString, int)));
-
+    connect(this->tcpServer, SIGNAL(signalShowOnStatusBar(QString)), this->serverMainWindow, SLOT(slotUpdateStatusBar(QString)));
     //Show GUI - mainWindow
     this->serverMainWindow->show();
 }

@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <QString>
 #include <QDateTime>
-#include <StringConstant.h>
+#include <Const/StringConstant.h>
 #include <QDataStream>
 
 #define PORT_RANGE 65535
@@ -27,6 +27,7 @@ bool TcpServer::startServer(QString ipAddress, int port)
     if(!ipAddress.contains(QRegExp(StringConstant::REGEX_IPV4)))
     {
        qDebug () << StringConstant::ERROR_FORMAT_NOT_IPV4;
+       emit signalShowOnStatusBar(StringConstant::ERROR_FORMAT_NOT_IPV4);
        return false;
     }
     //Port range checking.

@@ -1,8 +1,8 @@
 #ifndef SERVERCONNECTOR_H
 #define SERVERCONNECTOR_H
 
-#include <TcpServer.h>
-#include <ServerMainWindow.h>
+#include <Model/TcpServer.h>
+#include <View/ServerMainWindow.h>
 #include <QObject>
 
 class ServerConnector : public QObject

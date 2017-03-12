@@ -1,6 +1,6 @@
-#include "ServerMainWindow.h"
+#include "View/ServerMainWindow.h"
 #include "ui_servermainwindow.h"
-#include "StringConstant.h"
+#include "Const/StringConstant.h"
 #include "QKeyEvent"
 #include <QDebug>
 
@@ -16,6 +16,18 @@ ServerMainWindow::ServerMainWindow(QWidget *parent) :
 ServerMainWindow::~ServerMainWindow()
 {
     delete ui;
+}
+
+QString ServerMainWindow::ServerAddress(QString ipAddress, int port)
+{
+    if(ipAddress.isNull())
+    {
+       return QString();
+    }
+    else
+    {
+        return " " + ipAddress + ":" + QString::number(port);
+    }
 }
 
 void ServerMainWindow::setupSplitterCollapsibility(QSplitter *splitter, bool collapseFlag)
@@ -50,7 +62,7 @@ void ServerMainWindow::slotServerStarted(QString ipAddress, int port)
 {
     ui->serverStatusValue->setText(StringConstant::SERVER_RUNNING);
     ui->serverStatusSign->setStyleSheet("QLabel { background-color : green; }");
-    ui->statusBar->showMessage(StringConstant::SERVER_RUNNING + " " + ipAddress + ":" + QString::number(port));
+    ui->statusBar->showMessage(StringConstant::SERVER_RUNNING + ServerAddress(ipAddress, port));
 
     //Disable line edits
     ui->ipLineEdit->setEnabled(false);
@@ -61,7 +73,7 @@ void ServerMainWindow::slotServerStopped(QString ipAddress, int port)
 {
     ui->serverStatusValue->setText(StringConstant::SERVER_NOT_RUNNING);
     ui->serverStatusSign->setStyleSheet("QLabel { background-color : red; }");
-    ui->statusBar->showMessage(StringConstant::SERVER_NOT_RUNNING + " " + ipAddress + ":" + QString::number(port));
+    ui->statusBar->showMessage(StringConstant::SERVER_NOT_RUNNING + ServerAddress(ipAddress, port));
 
     //Enable line edits
     ui->ipLineEdit->setEnabled(true);
@@ -70,12 +82,12 @@ void ServerMainWindow::slotServerStopped(QString ipAddress, int port)
 
 void ServerMainWindow::slotServerAlreadyRunning(QString ipAddress, int port)
 {
-    ui->statusBar->showMessage(StringConstant::ERROR_SERVER_IS_ALREADY_RUNNING + " " + ipAddress + ":" + QString::number(port));
+    ui->statusBar->showMessage(StringConstant::ERROR_SERVER_IS_ALREADY_RUNNING + ServerAddress(ipAddress, port));
 }
 
 void ServerMainWindow::slotServerNotEvenStarted(QString ipAddress, int port)
 {
-    ui->statusBar->showMessage(StringConstant::ERROR_SERVER_NOT_EVEN_STARTED + " " + ipAddress + ":" + QString::number(port));
+    ui->statusBar->showMessage(StringConstant::ERROR_SERVER_NOT_EVEN_STARTED + ServerAddress(ipAddress, port));
 }
 
 void ServerMainWindow::keyPressEvent(QKeyEvent *event)
@@ -92,6 +104,10 @@ void ServerMainWindow::keyPressEvent(QKeyEvent *event)
     }
 }
 
+void ServerMainWindow::slotUpdateStatusBar(QString message)
+{
+    ui->statusBar->showMessage(message);
+}
 //bool ServerMainWindow::checkIpFormat()
 //{
 //    //Checks Ipv4 format match.

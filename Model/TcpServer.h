@@ -24,6 +24,8 @@ signals:
     signalServerAlreadyRunning(QString ip, int port);
     signalServerNotEvenStarted(QString ip, int port);
 
+    signalShowOnStatusBar(QString message);
+
 private slots:
     void slotMessageRead();
 public slots:
