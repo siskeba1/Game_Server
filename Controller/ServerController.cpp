@@ -1,11 +1,11 @@
 #include "Controller/ServerController.h"
 
-ServerConnector::ServerConnector(QObject *parent) : QObject(parent)
+ServerController::ServerController(QObject *parent) : QObject(parent)
 {
 
 }
 
-ServerConnector::ServerConnector(TcpServer *tcpServer, ServerMainWindow *serverMainWindow)
+ServerController::ServerController(TcpServer *tcpServer, ServerMainWindow *serverMainWindow)
 {
     this->tcpServer = tcpServer;
     this->serverMainWindow = serverMainWindow;

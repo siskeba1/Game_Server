@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1183</width>
-    <height>634</height>
+    <width>673</width>
+    <height>508</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -322,7 +322,7 @@
              <widget class="QGroupBox" name="groupBox_2">
               <property name="minimumSize">
                <size>
-                <width>250</width>
+                <width>300</width>
                 <height>250</height>
                </size>
               </property>
@@ -701,7 +701,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QFrame" name="frame_2">
+      <widget class="QFrame" name="tableFrame">
        <property name="minimumSize">
         <size>
          <width>300</width>
@@ -714,11 +714,7 @@
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
-       <layout class="QGridLayout" name="gridLayout_4">
-        <item row="0" column="0">
-         <widget class="QTableView" name="tableView"/>
-        </item>
-       </layout>
+       <layout class="QGridLayout" name="gridLayout_4"/>
       </widget>
      </widget>
     </item>
@@ -729,7 +725,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1183</width>
+     <width>673</width>
      <height>21</height>
     </rect>
    </property>
@@ -748,14 +744,6 @@
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSettings"/>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionFunction1">

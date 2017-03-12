@@ -5,12 +5,12 @@
 #include <View/ServerMainWindow.h>
 #include <QObject>
 
-class ServerConnector : public QObject
+class ServerController : public QObject
 {
     Q_OBJECT
 public:
-    ServerConnector(QObject *parent = 0);
-    ServerConnector(TcpServer* tcpServer, ServerMainWindow* serverMainWindow);
+    ServerController(QObject *parent = 0);
+    ServerController(TcpServer* tcpServer, ServerMainWindow* serverMainWindow);
 private:
     TcpServer* tcpServer;
     ServerMainWindow* serverMainWindow;

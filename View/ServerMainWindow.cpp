@@ -63,6 +63,7 @@ void ServerMainWindow::slotServerStarted(QString ipAddress, int port)
     ui->serverStatusValue->setText(StringConstant::SERVER_RUNNING);
     ui->serverStatusSign->setStyleSheet("QLabel { background-color : green; }");
     ui->statusBar->showMessage(StringConstant::SERVER_RUNNING + ServerAddress(ipAddress, port));
+    ui->portLineEdit->setText(QString::number(port));
 
     //Disable line edits
     ui->ipLineEdit->setEnabled(false);

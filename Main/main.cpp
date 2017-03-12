@@ -1,6 +1,6 @@
-#include "ServerMainWindow.h"
-#include "Connector/ServerController.h"
-#include <TcpServer.h>
+#include "View/ServerMainWindow.h"
+#include "Controller//ServerController.h"
+#include <Model/TcpServer.h>
 #include <QApplication>
 
 int main(int argc, char *argv[])
@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     ServerMainWindow* serverMainWindow = new ServerMainWindow();
 
     //Connecctor
-    ServerConnector* serverConnector = new ServerConnector(tcpServer, serverMainWindow);
+    ServerController* serverController= new ServerController(tcpServer, serverMainWindow);
 
     return a.exec();
 }

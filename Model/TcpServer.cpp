@@ -1,9 +1,9 @@
-#include "TcpServer.h"
+#include "Model/TcpServer.h"
+#include <Const/StringConstant.h>
 
 #include <QDebug>
 #include <QString>
 #include <QDateTime>
-#include <Const/StringConstant.h>
 #include <QDataStream>
 
 #define PORT_RANGE 65535
@@ -34,6 +34,7 @@ bool TcpServer::startServer(QString ipAddress, int port)
     if (port > PORT_RANGE)
     {
         qDebug() << StringConstant::ERROR_OUT_OF_RANGE_PORT;
+        emit signalShowOnStatusBar(StringConstant::ERROR_OUT_OF_RANGE_PORT);
         return false;
     }
     //Converting QString to QHostAddress.
@@ -43,6 +44,7 @@ bool TcpServer::startServer(QString ipAddress, int port)
     if (!(this->listen(ip, port)))
     {
         qDebug() << StringConstant::ERROR_SERVER_UNABLE_TO_START << " Ip: " << ipAddress;
+        emit signalShowOnStatusBar(StringConstant::ERROR_SERVER_UNABLE_TO_START);
         qDebug() << this->errorString();
         this->close();
         return false;
@@ -50,7 +52,7 @@ bool TcpServer::startServer(QString ipAddress, int port)
     else
     {
         //The server is running.
-        emit signalServerStarted(ipAddress, port);
+        emit signalServerStarted(ipAddress, this->serverPort());
         printServerInfo();
         return true;
     }
