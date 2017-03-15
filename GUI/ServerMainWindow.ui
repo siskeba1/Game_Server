@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>673</width>
-    <height>508</height>
+    <width>856</width>
+    <height>496</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,13 +26,13 @@
       <widget class="QFrame" name="frame">
        <property name="minimumSize">
         <size>
-         <width>350</width>
+         <width>400</width>
          <height>0</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>80000</width>
+         <width>450</width>
          <height>80000</height>
         </size>
        </property>
@@ -56,11 +56,24 @@
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QGridLayout" name="gridLayout_7">
+            <item row="0" column="1">
+             <spacer name="horizontalSpacer_15">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
             <item row="0" column="0">
              <widget class="QGroupBox" name="groupBox">
               <property name="minimumSize">
                <size>
-                <width>250</width>
+                <width>300</width>
                 <height>0</height>
                </size>
               </property>
@@ -295,8 +308,18 @@
               <zorder>verticalSpacer</zorder>
              </widget>
             </item>
+           </layout>
+          </widget>
+          <widget class="QFrame" name="frame_4">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_2">
             <item row="0" column="1">
-             <spacer name="horizontalSpacer_15">
+             <spacer name="horizontalSpacer_16">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -308,21 +331,11 @@
               </property>
              </spacer>
             </item>
-           </layout>
-          </widget>
-          <widget class="QFrame" name="frame_4">
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_2">
             <item row="0" column="0">
              <widget class="QGroupBox" name="groupBox_2">
               <property name="minimumSize">
                <size>
-                <width>300</width>
+                <width>320</width>
                 <height>250</height>
                </size>
               </property>
@@ -336,6 +349,19 @@
                <string>Status monitor</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_6">
+               <item row="1" column="0">
+                <spacer name="verticalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
                <item row="0" column="0">
                 <layout class="QVBoxLayout" name="verticalLayout_2">
                  <item>
@@ -666,34 +692,8 @@
                  </item>
                 </layout>
                </item>
-               <item row="1" column="0">
-                <spacer name="verticalSpacer_2">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
               </layout>
              </widget>
-            </item>
-            <item row="0" column="1">
-             <spacer name="horizontalSpacer_16">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
             </item>
            </layout>
           </widget>
@@ -708,13 +708,11 @@
          <height>0</height>
         </size>
        </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_4"/>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="QTableView" name="tableView"/>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -725,7 +723,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>673</width>
+     <width>856</width>
      <height>21</height>
     </rect>
    </property>

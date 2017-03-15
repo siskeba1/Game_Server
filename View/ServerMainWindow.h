@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QSplitter>
+#include <QTableWidget>
+#include <QStandardItemModel>
 
 namespace Ui {
 class ServerMainWindow;
@@ -29,10 +31,13 @@ private slots:
     void on_startButton_clicked();
     void on_shutDownButton_clicked();
 private:
-    Ui::ServerMainWindow *ui;
+    Ui::ServerMainWindow* ui;
     bool checkIpFormat();
     void setupSplitterCollapsibility(QSplitter *splitter, bool collapseFlag);
     QString ServerAddress(QString ipAddress, int port);
+    QStandardItemModel* tableModel;
+    QStringList tableHeader;
+    void setupTableView();
 signals:
     void signalStartButton(QString ip, int port);
     void signalShutDownButton();

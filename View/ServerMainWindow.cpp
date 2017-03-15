@@ -1,6 +1,7 @@
 #include "View/ServerMainWindow.h"
 #include "ui_servermainwindow.h"
 #include "Const/StringConstant.h"
+#include <QTableWidget>
 #include "QKeyEvent"
 #include <QDebug>
 
@@ -9,13 +10,28 @@ ServerMainWindow::ServerMainWindow(QWidget *parent) :
     ui(new Ui::ServerMainWindow)
 {
     ui->setupUi(this);
+
     setupSplitterCollapsibility(ui->splitter, false);
     setupSplitterCollapsibility(ui->splitter_2, false);
+
+    setupTableView();
 }
 
 ServerMainWindow::~ServerMainWindow()
 {
     delete ui;
+}
+
+void ServerMainWindow::setupTableView()
+{
+    tableModel = new QStandardItemModel(0, 4);
+    tableHeader.append(QString("Client number"));
+    tableHeader.append(QString("Client port"));
+    tableHeader.append(QString("Connect date"));
+    tableHeader.append(QString("Ping"));
+    tableModel->setHorizontalHeaderLabels(tableHeader);
+    ui->tableView->setModel(tableModel);
+    ui->tableView->setVisible(true);
 }
 
 QString ServerMainWindow::ServerAddress(QString ipAddress, int port)
@@ -96,7 +112,7 @@ void ServerMainWindow::keyPressEvent(QKeyEvent *event)
 
     switch(event->key())
     {
-    //When ENTER key is pressed behaves like start button was pressed.
+    //When ENTER key is pressed behaves, like start button was pressed.
     case Qt::Key_Return:
     {
         on_startButton_clicked();
