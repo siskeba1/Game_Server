@@ -125,17 +125,3 @@ void ServerMainWindow::slotUpdateStatusBar(QString message)
 {
     ui->statusBar->showMessage(message);
 }
-//bool ServerMainWindow::checkIpFormat()
-//{
-//    //Checks Ipv4 format match.
-//    if(ui->ipLineEdit->text().contains(QRegExp(StringConstant::REGEX_IPV4)))
-//    {
-//        emit signalValidIp();
-//        return true;
-//    }
-//    else
-//    {
-//        emit signalErrorMessage(StringConstant::ERROR_FORMAT_NOT_IPV4);
-//        return false;
-//    }
-//}
