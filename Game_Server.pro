@@ -18,13 +18,15 @@ SOURCES += Main/main.cpp\
     Controller/ServerController.cpp \
     View/ServerMainWindow.cpp \
     Const/StringConstant.cpp \
-    Model/TcpServer.cpp
+    Model/TcpServer.cpp \
+    ServerWorkingThread/ServerWorkingThread.cpp
 
 HEADERS  += \
     Model/TcpServer.h \
     Const/StringConstant.h \
     View/ServerMainWindow.h \
-    Controller/ServerController.h
+    Controller/ServerController.h \
+    ServerWorkingThread/ServerWorkingThread.h
 
 FORMS    += \
     GUI/ServerMainWindow.ui

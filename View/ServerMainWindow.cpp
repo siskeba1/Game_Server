@@ -14,6 +14,10 @@ ServerMainWindow::ServerMainWindow(QWidget *parent) :
     setupSplitterCollapsibility(ui->splitter, false);
     setupSplitterCollapsibility(ui->splitter_2, false);
 
+    //DEFAULT IP/PORT
+    ui->ipLineEdit->setText("192.168.153.1");
+    ui->portLineEdit->setText("5001");
+
     setupTableView();
 }
 

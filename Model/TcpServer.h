@@ -9,14 +9,14 @@
 class TcpServer : public QTcpServer
 {
     Q_OBJECT
-    void printServerInfo();
 public:
     TcpServer(QObject *parent = NULL);    
 protected:
-    void incomingConnection(qintptr socketDescriptor) Q_DECL_OVERRIDE;
+    void incomingConnection(qintptr clientId) Q_DECL_OVERRIDE;
 private:
     QTcpSocket *connection;
     QString msg;
+    void printServerInfo();
 signals:
     signalServerStarted(QString ip, int port);
     signalServerStopped(QString ip, int port);
@@ -25,8 +25,8 @@ signals:
     signalServerNotEvenStarted(QString ip, int port);
 
     signalShowOnStatusBar(QString message);
-
 private slots:
+    void slotIncomingConnection(int clientId);
     void slotMessageRead();
 public slots:
     bool startServer(QString ipAddress, int port);
