@@ -93,9 +93,12 @@ void TcpServer::slotIncomingConnection(int clientId)
 
     connection = new QTcpSocket(this);
     connection->setSocketDescriptor(clientId);
+
+    emit signalRegisterClient(connection);
+
     if (connection)
     {
-        QString signalMessage = "ip:" + connection->peerAddress().toString() + " port:" + QString::number(connection->peerPort()) + " client connected. [" + QDateTime::currentDateTime().date().toString(StringConstant::DATE_FORMAT) + " " + QDateTime::currentDateTime().time().toString(StringConstant::TIME_FORMAT) +"]";
+        //QString signalMessage = "ip:" + connection->peerAddress().toString() + " port:" + QString::number(connection->peerPort()) + " client connected. [" + QDateTime::currentDateTime().date().toString(StringConstant::DATE_FORMAT) + " " + QDateTime::currentDateTime().time().toString(StringConstant::TIME_FORMAT) +"]";
         //emit signalClientsChanged(signalMessage);
 
         //connection->startWarningTimer();

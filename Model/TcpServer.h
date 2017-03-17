@@ -25,6 +25,7 @@ signals:
     signalServerNotEvenStarted(QString ip, int port);
 
     signalShowOnStatusBar(QString message);
+    signalRegisterClient(QTcpSocket*);
 private slots:
     void slotIncomingConnection(int clientId);
     void slotMessageRead();

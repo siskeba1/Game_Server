@@ -1,10 +1,14 @@
 #ifndef SERVERMAINWINDOW_H
 #define SERVERMAINWINDOW_H
 
+#include <View/ClientTableItem.h>
+
 #include <QMainWindow>
 #include <QSplitter>
 #include <QTableWidget>
 #include <QStandardItemModel>
+#include <QTcpSocket>
+#include <QMap>
 
 namespace Ui {
 class ServerMainWindow;
@@ -26,7 +30,7 @@ public slots:
     void slotServerNotEvenStarted(QString ipAddress, int port);
 
     void slotUpdateStatusBar(QString message);
-
+    void slotNewClientConnected(QTcpSocket* client);
 private slots:
     void on_startButton_clicked();
     void on_shutDownButton_clicked();
@@ -37,7 +41,10 @@ private:
     QString ServerAddress(QString ipAddress, int port);
     QStandardItemModel* tableModel;
     QStringList tableHeader;
+    QMap<int, ClientTableItem*> *clientItemList;
     void setupTableView();
+    void updateClientTable();
+    void clearTableView();
 signals:
     void signalStartButton(QString ip, int port);
     void signalShutDownButton();
