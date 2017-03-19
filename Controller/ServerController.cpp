@@ -23,7 +23,11 @@ ServerController::ServerController(TcpServer *tcpServer, ServerMainWindow *serve
     connect(this->tcpServer, SIGNAL(signalServerAlreadyRunning(QString, int)), this->serverMainWindow, SLOT(slotServerAlreadyRunning(QString, int)));
     connect(this->tcpServer, SIGNAL(signalServerNotEvenStarted(QString, int)), this->serverMainWindow, SLOT(slotServerNotEvenStarted(QString, int)));
     connect(this->tcpServer, SIGNAL(signalShowOnStatusBar(QString)), this->serverMainWindow, SLOT(slotUpdateStatusBar(QString)));
+
     connect(this->tcpServer, SIGNAL(signalRegisterClient(QTcpSocket*)), this->serverMainWindow, SLOT(slotNewClientConnected(QTcpSocket*)));
+    connect(this->tcpServer, SIGNAL(signalDeleteClient(QTcpSocket*)), this->serverMainWindow, SLOT(slotClientDisconnected(QTcpSocket*)));
+
+    connect(this->tcpServer, SIGNAL(signalDeleteClient(QTcpSocket*)), this->serverMainWindow, SLOT(slotClientDisconnected(QTcpSocket*)));
 
     //Show GUI - mainWindow
     this->serverMainWindow->show();

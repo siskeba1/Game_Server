@@ -26,9 +26,12 @@ signals:
 
     signalShowOnStatusBar(QString message);
     signalRegisterClient(QTcpSocket*);
+    signalDeleteClient(QTcpSocket*);
+
 private slots:
     void slotIncomingConnection(int clientId);
     void slotMessageRead();
+    void slotDisconnected();
 public slots:
     bool startServer(QString ipAddress, int port);
     void shutDownServer();

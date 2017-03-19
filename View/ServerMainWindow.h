@@ -31,6 +31,7 @@ public slots:
 
     void slotUpdateStatusBar(QString message);
     void slotNewClientConnected(QTcpSocket* client);
+    void slotClientDisconnected(QTcpSocket *client);
 private slots:
     void on_startButton_clicked();
     void on_shutDownButton_clicked();
@@ -41,7 +42,7 @@ private:
     QString ServerAddress(QString ipAddress, int port);
     QStandardItemModel* tableModel;
     QStringList tableHeader;
-    QMap<int, ClientTableItem*> *clientItemList;
+    QMap<QTcpSocket *, ClientTableItem*> *clientItemList;
     void setupTableView();
     void updateClientTable();
     void clearTableView();

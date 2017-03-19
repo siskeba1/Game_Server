@@ -90,29 +90,27 @@ void TcpServer::incomingConnection(qintptr clientId)
 void TcpServer::slotIncomingConnection(int clientId)
 {
     qDebug() << StringConstant::CLIENT_CONNECTED << clientId;
-
     connection = new QTcpSocket(this);
     connection->setSocketDescriptor(clientId);
-
     emit signalRegisterClient(connection);
 
     if (connection)
     {
-        //QString signalMessage = "ip:" + connection->peerAddress().toString() + " port:" + QString::number(connection->peerPort()) + " client connected. [" + QDateTime::currentDateTime().date().toString(StringConstant::DATE_FORMAT) + " " + QDateTime::currentDateTime().time().toString(StringConstant::TIME_FORMAT) +"]";
-        //emit signalClientsChanged(signalMessage);
-
-        //connection->startWarningTimer();
-        //clientConnections.append(connection);
-
         connect(connection, &QIODevice::readyRead, this, &TcpServer::slotMessageRead);
-        //connect(connection, SIGNAL(disconnected()), this, SLOT(slotDisconnected()));
+        connect(connection, SIGNAL(disconnected()), this, SLOT(slotDisconnected()));
     }
+}
+
+void TcpServer::slotDisconnected()
+{
+    emit signalDeleteClient(connection);
 }
 
 void TcpServer::slotMessageRead()
 {
     connection = qobject_cast<QTcpSocket*>(sender());
     connection->waitForReadyRead(10);
+    int asd = connection->socketDescriptor();
     do
     {
       QDataStream in;

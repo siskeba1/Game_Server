@@ -20,7 +20,7 @@ ServerMainWindow::ServerMainWindow(QWidget *parent) :
 
 
     //ClientItemList
-    clientItemList = new QMap<int, ClientTableItem*>();
+    clientItemList = new QMap<QTcpSocket*, ClientTableItem*>();
 
     ui->tableView->setEnabled(false);
 
@@ -153,15 +153,27 @@ void ServerMainWindow::slotUpdateStatusBar(QString message)
     ui->statusBar->showMessage(message);
 }
 
-void ServerMainWindow::slotNewClientConnected(QTcpSocket *client)
+void ServerMainWindow::slotClientDisconnected(QTcpSocket *client)
 {
-    //TODO: Add client to the list, and refresh table view.
-    int id = client->socketDescriptor();
-    if (clientItemList->contains(id))
+    if (!clientItemList->contains(client))
     {
+        //TODO: Logging - the clientlist didn't contain the client's id in the list.
         return;
     }
-    clientItemList->insert(id , new ClientTableItem(id, -1, QDateTime::currentDateTime(), true));
+    clientItemList->remove(client);
+    updateClientTable();
+}
+
+void ServerMainWindow::slotNewClientConnected(QTcpSocket *client)
+{
+    //Add client to the list, and refresh table view.
+    int id = client->socketDescriptor();
+    if (clientItemList->contains(client))
+    {
+        //TODO: Logging - the clientlist already contains the client's id in the list.
+        return;
+    }
+    clientItemList->insert(client , new ClientTableItem(id, -1, QDateTime::currentDateTime(), true));
     qDebug() << "Add client: " << id;
 
     updateClientTable();
@@ -172,9 +184,9 @@ void ServerMainWindow::updateClientTable()
 {
     clearTableView();
     int number = 1;
-    for (int i : clientItemList->keys())
+    for (QTcpSocket* client : clientItemList->keys())
     {
-        ClientTableItem* actualClientItem = clientItemList->value(i);
+        ClientTableItem* actualClientItem = clientItemList->value(client);
         QStringList *rowContent = new QStringList();
         rowContent->append(QString("#") + QString::number(number));
         rowContent->append(QString::number(actualClientItem->getId()));
