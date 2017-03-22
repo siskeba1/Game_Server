@@ -25,6 +25,7 @@ public:
     //SERVER MESSAGES
      static const QString SERVER_RUNNING;
      static const QString SERVER_NOT_RUNNING;
+     static const QString CLIENT_CONNECTED;
 };
 
 #endif // STRINGCONSTANT_H

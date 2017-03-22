@@ -18,3 +18,4 @@ const QString StringConstant::ERROR_OUT_OF_RANGE_PORT = "Error: The port is out 
 //SERVER MESSAGES
 const QString StringConstant::SERVER_RUNNING = "The server is running.";
 const QString StringConstant::SERVER_NOT_RUNNING = "The server is not running.";
+const QString StringConstant::CLIENT_CONNECTED = "Client connected :";

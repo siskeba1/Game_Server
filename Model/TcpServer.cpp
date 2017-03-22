@@ -1,10 +1,12 @@
 #include "Model/TcpServer.h"
 #include <Const/StringConstant.h>
+#include <ServerWorkingThread/ServerWorkingThread.h>
 
 #include <QDebug>
 #include <QString>
 #include <QDateTime>
 #include <QDataStream>
+
 
 #define PORT_RANGE 65535
 
@@ -71,34 +73,44 @@ void TcpServer::shutDownServer()
     }
 }
 
-void TcpServer::incomingConnection(qintptr socketDescriptor)
+void TcpServer::incomingConnection(qintptr clientId)
 {
     ///Parameter checking
-    if(socketDescriptor == NULL)
+    if(clientId == NULL)
     {
         //TODO: Error logging - Server::incomingConnection - parameter error.
         return;
     }
 
+    //Start new thread for the new connection.
+    ServerWorkingThread* serverWorkingThread = new ServerWorkingThread(this->parent(), this, clientId);
+    serverWorkingThread->start();
+}
+
+void TcpServer::slotIncomingConnection(int clientId)
+{
+    qDebug() << StringConstant::CLIENT_CONNECTED << clientId;
     connection = new QTcpSocket(this);
-    connection->setSocketDescriptor(socketDescriptor);
+    connection->setSocketDescriptor(clientId);
+    emit signalRegisterClient(connection);
+
     if (connection)
     {
-        QString signalMessage = "ip:" + connection->peerAddress().toString() + " port:" + QString::number(connection->peerPort()) + " client connected. [" + QDateTime::currentDateTime().date().toString(StringConstant::DATE_FORMAT) + " " + QDateTime::currentDateTime().time().toString(StringConstant::TIME_FORMAT) +"]";
-        //emit signalClientsChanged(signalMessage);
-
-        //connection->startWarningTimer();
-        //clientConnections.append(connection);
-
         connect(connection, &QIODevice::readyRead, this, &TcpServer::slotMessageRead);
-        //connect(connection, SIGNAL(disconnected()), this, SLOT(slotDisconnected()));
+        connect(connection, SIGNAL(disconnected()), this, SLOT(slotDisconnected()));
     }
+}
+
+void TcpServer::slotDisconnected()
+{
+    emit signalDeleteClient(connection);
 }
 
 void TcpServer::slotMessageRead()
 {
     connection = qobject_cast<QTcpSocket*>(sender());
     connection->waitForReadyRead(10);
+    int asd = connection->socketDescriptor();
     do
     {
       QDataStream in;
@@ -108,7 +120,7 @@ void TcpServer::slotMessageRead()
       in >> msg;
       in.commitTransaction();
       //Decryption.
-      qDebug() << "Üzenet: " << msg;
+      qDebug() << "Üzenet[" << connection->socketDescriptor() <<"]: " << msg;
     }
     while (connection->bytesAvailable() > 0);
 }
