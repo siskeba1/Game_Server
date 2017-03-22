@@ -87,42 +87,78 @@ void TcpServer::incomingConnection(qintptr clientId)
     serverWorkingThread->start();
 }
 
+QString TcpServer::getMsg() const
+{
+    return incomingMessage_;
+}
+
+void TcpServer::setMsg(const QString &value)
+{
+    incomingMessage_ = value;
+}
+
 void TcpServer::slotIncomingConnection(int clientId)
 {
     qDebug() << StringConstant::CLIENT_CONNECTED << clientId;
-    connection = new QTcpSocket(this);
-    connection->setSocketDescriptor(clientId);
-    emit signalRegisterClient(connection);
+    connection_ = new QTcpSocket(this);
+    connection_->setSocketDescriptor(clientId);
+    emit signalRegisterClient(connection_);
 
-    if (connection)
+    if (connection_)
     {
-        connect(connection, &QIODevice::readyRead, this, &TcpServer::slotMessageRead);
-        connect(connection, SIGNAL(disconnected()), this, SLOT(slotDisconnected()));
+        connect(connection_, &QIODevice::readyRead, this, &TcpServer::slotMessageRead);
+        connect(connection_, SIGNAL(disconnected()), this, SLOT(slotDisconnected()));
     }
 }
 
 void TcpServer::slotDisconnected()
 {
-    emit signalDeleteClient(connection);
+    emit signalDeleteClient(connection_);
+}
+
+void TcpServer::slotRegisterClient(QTcpSocket *newClient)
+{
+    int clientId = newClient->socketDescriptor();
+    if(clientList.contains(clientId))
+    {
+        //Client is already registered.
+        qDebug() << "[Warning] The client is already in the list.";
+        return;
+    }
+
+    clientList.insert(clientId, newClient);
 }
 
 void TcpServer::slotMessageRead()
 {
-    connection = qobject_cast<QTcpSocket*>(sender());
-    connection->waitForReadyRead(10);
-    int asd = connection->socketDescriptor();
+    connection_ = qobject_cast<QTcpSocket*>(sender());
+    connection_->waitForReadyRead(10);
     do
     {
-      QDataStream in;
-      in.setDevice(connection);
-      in.setVersion(QDataStream::Qt_5_7);
-      in.startTransaction();
-      in >> msg;
-      in.commitTransaction();
-      //Decryption.
-      qDebug() << "Üzenet[" << connection->socketDescriptor() <<"]: " << msg;
+        QDataStream in;
+        in.setDevice(connection_);
+        in.setVersion(QDataStream::Qt_5_7);
+        in.startTransaction();
+        in >> incomingMessage_;
+        in.commitTransaction();
+        //Decryption.
+        //TODO: Message processing.
+        qDebug() << "Üzenet[" << connection_->socketDescriptor() <<"]: " << incomingMessage_;
     }
-    while (connection->bytesAvailable() > 0);
+    while (connection_->bytesAvailable() > 0);
+}
+
+void TcpServer::sendMessage(QString msg)
+{
+    connection_ = qobject_cast<QTcpSocket*>(sender());
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_5_7);
+
+    //Encryption and message sending.
+    out << msg; //QString::fromStdString(AESCrypterCommunication->encryption(msg.toStdString().c_str()).toStdString());
+    connection_->write(block);
+    connection_->waitForBytesWritten();
 }
 
 void TcpServer::printServerInfo()
