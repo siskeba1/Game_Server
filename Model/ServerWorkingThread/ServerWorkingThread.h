@@ -1,7 +1,7 @@
 #ifndef SERVERWORKINGTHREAD_H
 #define SERVERWORKINGTHREAD_H
 
-#include <Model/TcpServer.h>
+#include <Model/TcpServer/TcpServer.h>
 #include <QObject>
 #include <QThread>
 #include <QtGlobal>

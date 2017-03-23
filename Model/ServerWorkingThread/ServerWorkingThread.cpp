@@ -1,4 +1,4 @@
-#include "ServerWorkingThread/ServerWorkingThread.h"
+#include "Model/ServerWorkingThread/ServerWorkingThread.h"
 #include <QDebug>
 
 

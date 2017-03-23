@@ -1,6 +1,6 @@
-#include "Model/TcpServer.h"
+#include "Model/TcpServer/TcpServer.h"
 #include <Const/StringConstant.h>
-#include <ServerWorkingThread/ServerWorkingThread.h>
+#include <Model/ServerWorkingThread/ServerWorkingThread.h>
 
 #include <QDebug>
 #include <QString>

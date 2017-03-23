@@ -14,20 +14,21 @@ TARGET = Game_Server
 CONFIG -= app_bundle
 
 TEMPLATE = app
-SOURCES += Main/main.cpp\
+SOURCES +=\
     Controller/ServerController.cpp \
     View/ServerMainWindow.cpp \
     Const/StringConstant.cpp \
-    Model/TcpServer.cpp \
-    ServerWorkingThread/ServerWorkingThread.cpp \
-    View/ClientTableItem.cpp
+    Model/TcpServer/TcpServer.cpp \
+    Model/ServerWorkingThread/ServerWorkingThread.cpp \
+    View/ClientTableItem.cpp \
+    Main/Main.cpp
 
 HEADERS  += \
-    Model/TcpServer.h \
+    Model/TcpServer/TcpServer.h \
     Const/StringConstant.h \
     View/ServerMainWindow.h \
     Controller/ServerController.h \
-    ServerWorkingThread/ServerWorkingThread.h \
+    Model/ServerWorkingThread/ServerWorkingThread.h \
     View/ClientTableItem.h
 
 FORMS    += \

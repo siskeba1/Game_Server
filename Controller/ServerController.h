@@ -1,7 +1,7 @@
 #ifndef SERVERCONNECTOR_H
 #define SERVERCONNECTOR_H
 
-#include <Model/TcpServer.h>
+#include <Model/TcpServer/TcpServer.h>
 #include <View/ServerMainWindow.h>
 #include <QObject>
 
