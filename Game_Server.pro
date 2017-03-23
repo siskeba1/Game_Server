@@ -21,7 +21,8 @@ SOURCES +=\
     Model/TcpServer/TcpServer.cpp \
     Model/ServerWorkingThread/ServerWorkingThread.cpp \
     View/ClientTableItem.cpp \
-    Main/Main.cpp
+    Main/Main.cpp \
+    Model/MessageProcessor/MessageProcessor.cpp
 
 HEADERS  += \
     Model/TcpServer/TcpServer.h \
@@ -29,7 +30,8 @@ HEADERS  += \
     View/ServerMainWindow.h \
     Controller/ServerController.h \
     Model/ServerWorkingThread/ServerWorkingThread.h \
-    View/ClientTableItem.h
+    View/ClientTableItem.h \
+    Model/MessageProcessor/MessageProcessor.h
 
 FORMS    += \
     GUI/ServerMainWindow.ui

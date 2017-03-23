@@ -1,6 +1,8 @@
 #ifndef TCPSERVER_H
 #define TCPSERVER_H
 
+#include <Model/MessageProcessor/MessageProcessor.h>
+
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
@@ -17,9 +19,10 @@ public:
 protected:
     void incomingConnection(qintptr clientId) Q_DECL_OVERRIDE;
 private:
-    QTcpSocket *connection_;
+    MessageProcessor* messageProcessor_;
+    QTcpSocket* connection_;
     QString incomingMessage_;
-    QMap<int, QTcpSocket*> clientList;
+    QMap<int, QTcpSocket*> clientList_;
     void printServerInfo();
 signals:
     signalServerStarted(QString ip, int port);
@@ -37,6 +40,7 @@ private slots:
     void slotMessageRead();
     void slotDisconnected();
     void slotRegisterClient(QTcpSocket* newClient);
+    void slotTestAnswer();
 public slots:
     bool startServer(QString ipAddress, int port);
     void shutDownServer();

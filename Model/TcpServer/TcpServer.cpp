@@ -1,6 +1,7 @@
 #include "Model/TcpServer/TcpServer.h"
 #include <Const/StringConstant.h>
 #include <Model/ServerWorkingThread/ServerWorkingThread.h>
+#include <Model/MessageProcessor/MessageProcessor.h>
 
 #include <QDebug>
 #include <QString>
@@ -13,6 +14,9 @@
 TcpServer::TcpServer(QObject *parent) : QTcpServer(parent)
 {
     qDebug() << "Tcp server constructor.";
+    messageProcessor_ = new MessageProcessor(this);
+
+    connect(messageProcessor_, SIGNAL(signalAnswerPing()), this, SLOT(slotTestAnswer()));
 }
 
 bool TcpServer::startServer(QString ipAddress, int port)
@@ -85,6 +89,7 @@ void TcpServer::incomingConnection(qintptr clientId)
     //Start new thread for the new connection.
     ServerWorkingThread* serverWorkingThread = new ServerWorkingThread(this->parent(), this, clientId);
     serverWorkingThread->start();
+    sendMessage("asd");
 }
 
 QString TcpServer::getMsg() const
@@ -119,14 +124,14 @@ void TcpServer::slotDisconnected()
 void TcpServer::slotRegisterClient(QTcpSocket *newClient)
 {
     int clientId = newClient->socketDescriptor();
-    if(clientList.contains(clientId))
+    if(clientList_.contains(clientId))
     {
         //Client is already registered.
         qDebug() << "[Warning] The client is already in the list.";
         return;
     }
 
-    clientList.insert(clientId, newClient);
+    clientList_.insert(clientId, newClient);
 }
 
 void TcpServer::slotMessageRead()
@@ -142,7 +147,7 @@ void TcpServer::slotMessageRead()
         in >> incomingMessage_;
         in.commitTransaction();
         //Decryption.
-        //TODO: Message processing.
+        messageProcessor_->process(incomingMessage_);
         qDebug() << "Üzenet[" << connection_->socketDescriptor() <<"]: " << incomingMessage_;
     }
     while (connection_->bytesAvailable() > 0);
@@ -164,4 +169,11 @@ void TcpServer::sendMessage(QString msg)
 void TcpServer::printServerInfo()
 {
     qDebug().noquote() << "Server ip: " << this->serverAddress().toString() << "\nServer port: " << this->serverPort();
+}
+
+///SLOTS
+
+void TcpServer::slotTestAnswer()
+{
+    sendMessage(QString("Answer message from server."));
 }
