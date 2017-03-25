@@ -160,6 +160,7 @@ void ServerMainWindow::slotClientDisconnected(QTcpSocket *client)
         //TODO: Logging - the clientlist didn't contain the client's id in the list.
         return;
     }
+    qDebug() << StringConstant::CLIENT_DISCONNECTED << client->socketDescriptor();
     clientItemList->remove(client);
     updateClientTable();
 }

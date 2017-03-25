@@ -119,7 +119,21 @@ void TcpServer::slotIncomingConnection(int clientId)
 void TcpServer::slotDisconnected()
 {
     connection_ = qobject_cast<QTcpSocket*>(sender());
+    int clientId = connection_->socketDescriptor();
+
+    //Signal to the Main Window's table view slot.
     emit signalDeleteClient(connection_);
+
+    //Removing from list.
+    if(!clientList_.contains(clientId))
+    {
+        qDebug() << "[Warning] The client wasn't in the client list, delete from list failed.";
+    }
+    else
+    {
+        clientList_.remove(clientId);
+        qDebug() << "Client removed from the list. ID: " << clientId;
+    }
 }
 
 void TcpServer::slotRegisterClient(QTcpSocket *newClient)
