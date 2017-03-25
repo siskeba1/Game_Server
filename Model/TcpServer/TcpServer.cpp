@@ -17,6 +17,7 @@ TcpServer::TcpServer(QObject *parent) : QTcpServer(parent)
     messageProcessor_ = new MessageProcessor(this);
 
     connect(messageProcessor_, SIGNAL(signalAnswerPing()), this, SLOT(slotTestAnswer()));
+    connect(this, SIGNAL(signalRegisterClient(QTcpSocket*)), this, SLOT(slotRegisterClient(QTcpSocket*)));
 }
 
 bool TcpServer::startServer(QString ipAddress, int port)
@@ -89,7 +90,6 @@ void TcpServer::incomingConnection(qintptr clientId)
     //Start new thread for the new connection.
     ServerWorkingThread* serverWorkingThread = new ServerWorkingThread(this->parent(), this, clientId);
     serverWorkingThread->start();
-    sendMessage("asd");
 }
 
 QString TcpServer::getMsg() const
@@ -118,6 +118,7 @@ void TcpServer::slotIncomingConnection(int clientId)
 
 void TcpServer::slotDisconnected()
 {
+    connection_ = qobject_cast<QTcpSocket*>(sender());
     emit signalDeleteClient(connection_);
 }
 
@@ -155,7 +156,7 @@ void TcpServer::slotMessageRead()
 
 void TcpServer::sendMessage(QString msg)
 {
-    connection_ = qobject_cast<QTcpSocket*>(sender());
+    //FIXME : cast TCP socket connection_ from the clientlist, id given in this method's parameter.
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_7);
